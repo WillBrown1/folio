@@ -4,6 +4,7 @@ The GitHub Pages frontend uses Supabase Auth and PostgreSQL. `social-config.json
 
 1. Create a personal Supabase project on the free plan.
 2. Run `backend/social-schema.sql` once in its SQL editor. The transaction creates only `repertoire_*` tables and a dedicated private helper schema. All data tables use Row Level Security.
+   Then run `backend/account-sync.sql` once to add private full-journal storage and revision-checked, idempotent saves. Run `backend/account-sync-test.sql` to verify owner-only access, anonymous denial, conflict protection and retry behavior inside a rolled-back transaction.
 3. Configure Auth → URL Configuration with site URL `https://willbrown1.github.io/stillblade/` and redirect URL `https://willbrown1.github.io/stillblade/?view=friends` for the Friends view and invitation links. Enable email sign-in. Configure custom SMTP for confirmation and password recovery emails to people outside the Supabase organization. The default sender is restricted to organization members. Keep email confirmation enabled unless the project owner explicitly chooses unverified email/password signup.
 4. Put the project URL and publishable/anon key into `social-config.json`.
 5. Run `node build.cjs`, the journal/social tests, and publish. Test two real accounts for mutual friendship and set membership before declaring the shared backend verified.
@@ -18,7 +19,7 @@ The GitHub Pages frontend uses Supabase Auth and PostgreSQL. `social-config.json
 - Friends see accepted friends' shared daily totals. Set members see each member's per-song times, progress toward the common target, and set totals for the displayed date. A person who disabled sharing is labeled `Not sharing` rather than zero.
 - Owners can create, edit or delete sets. Members join through an invitation link/code and may leave. Anyone with an invitation and a signed-in account can join; only current members can read set details and its practice matrix.
 - Practice set imports missing songs into the local repertoire without overwriting notes or custom settings. Daily set targets temporarily override the normal targets until the person exits the set or selects the Practice tab.
-- Personal journals remain browser-local. Only shared practice events, profiles, friendships, set definitions and memberships are stored remotely. The shared date is a local calendar-date label, displayed explicitly in the UI; it is not a rolling 24-hour period.
+- Full journals sync privately to each account, independently of the Share practice setting. Account-specific browser caches retain pending edits; old browser data imports once into the first account used on that browser and stays intact as a local backup. Active timers and pending social uploads stay device-local. The shared date is a local calendar-date label, displayed explicitly in the UI; it is not a rolling 24-hour period.
 
 ## Verification
 

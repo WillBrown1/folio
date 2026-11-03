@@ -14,15 +14,19 @@ The header contains a persistent light/dark theme toggle. Initial theme follows 
 
 Add or edit songs, artists, BPM, default minutes, lessons and notes. Song details include a calendar, totals and an optional metronome with tempo ramps. The weekly schedule assigns songs and durations to each day. All time on a song counts toward the day's target, including extra sessions.
 
-Songs, plans, notes and history are stored in the current browser/device without an account or server sync. Export/import a JSON backup to transfer data. Clearing browser data removes the journal. The supplied 23-song list is the default for new journals. Existing journals receive it once without duplicates; previously used songs, notes, history and schedules are preserved. Songs removed afterward are not automatically restored. New default songs have unset BPM and lesson fields, and an editable 10-minute target. Only source files are deployed to GitHub.
+An email/password account is required. Songs, plans, lesson links, notes, BPM, metronome settings and practice history sync privately through Supabase. Each browser keeps an account-specific cache for connection interruptions. Sync runs after edits, every ten seconds, and when returning to the page. Check “Synced to your account” before switching devices. Timers belong to the device that started them; their recorded time syncs, while active timers do not start on other devices.
+
+Existing browser data imports once into the first account used on that browser; the original journal is retained locally. Songs are matched by ID or title/artist, schedules are combined, and overlapping historical totals use the larger value to avoid counting the same old session twice. Existing cloud notes take precedence when both copies contain notes. Export/import remains available for manual backups. The supplied 23 songs are the default for new accounts, with unset BPM and lessons and a ten-minute target.
+
+Journal writes use revision checks and durable mutation IDs. Independent song-field and weekday edits merge, practice-time deltas add across devices, and retries are idempotent. For simultaneous edits to the same field or weekday, the device currently saving takes precedence. Full journals are private even when practice sharing is enabled; only the separately opted-in practice events are visible to friends and set members.
 
 Song lessons can be added in Edit song. YouTube embedding depends on video-owner settings; each lesson includes an external YouTube link.
 
 ## Development
 
-Run `node build.cjs` after changing app.js, journal.mjs, metronome.mjs or style.css. The generated bundle and hashed asset URLs are committed for static GitHub Pages hosting. No dependencies required. Run `node serve.cjs` for local preview.
+Run `node build.cjs` after changing source modules or style.css. The generated bundle and hashed asset URLs are committed for static GitHub Pages hosting. Run `node serve.cjs` for local preview. Supabase configuration and setup are in `backend/SETUP.md`.
 
-Tests: in PowerShell use `$env:TZ='America/New_York'; node --test journal.test.mjs`. Tests cover elapsed time, target notification without stopping, pause/reload, midnight and daylight-saving boundaries, weekly queues, backup validation, lesson URLs and metronome ramps.
+Tests: `node --test journal.test.mjs social.test.mjs cloud-journal.test.mjs`. SQL authorization tests run inside rolled-back transactions; no test accounts remain and no emails are sent.
 
-`?preview=1` uses separate test journal data. Theme preference is shared with the main journal.
+Local development uses the configured real account backend. Do not use production accounts for destructive testing.
 
