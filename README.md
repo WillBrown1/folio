@@ -14,9 +14,9 @@ The header contains a persistent light/dark theme toggle. Initial theme follows 
 
 Add or edit songs, artists, BPM, default minutes, lessons and notes. Song details include a calendar, totals and an optional metronome with tempo ramps. The weekly schedule assigns songs and durations to each day. All time on a song counts toward the day's target, including extra sessions.
 
-Songs, plans, notes and history are stored in the current browser/device without an account or server sync. Export/import a JSON backup to transfer data. Clearing browser data removes the journal. Sample songs may be edited or removed. Only source files are deployed to GitHub.
+Songs, plans, notes and history are stored in the current browser/device without an account or server sync. Export/import a JSON backup to transfer data. Clearing browser data removes the journal. The supplied 23-song list is the default for new journals. Existing journals receive it once without duplicates; previously used songs, notes, history and schedules are preserved. Songs removed afterward are not automatically restored. New default songs have unset BPM and lesson fields, and an editable 10-minute target. Only source files are deployed to GitHub.
 
-Starter lesson links: [Blackbird](https://www.youtube.com/watch?v=mEn2SEwZKNE), [Dust in the Wind](https://www.youtube.com/watch?v=tvwsFfmKw6A), [Wish You Were Here](https://www.youtube.com/watch?v=sG_K8sGflBY), [Landslide](https://www.youtube.com/watch?v=SERxZkTyQAg). YouTube embedding depends on video-owner settings. Each lesson includes an external YouTube link.
+Song lessons can be added in Edit song. YouTube embedding depends on video-owner settings; each lesson includes an external YouTube link.
 
 ## Development
 
@@ -25,3 +25,4 @@ Run `node build.cjs` after changing app.js, journal.mjs, metronome.mjs or style.
 Tests: in PowerShell use `$env:TZ='America/New_York'; node --test journal.test.mjs`. Tests cover elapsed time, target notification without stopping, pause/reload, midnight and daylight-saving boundaries, weekly queues, backup validation, lesson URLs and metronome ramps.
 
 `?preview=1` uses separate test journal data. Theme preference is shared with the main journal.
+
