@@ -1,4 +1,5 @@
 export const DAYS=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+export const STARTER_LESSONS={'Blackbird':'https://www.youtube.com/watch?v=mEn2SEwZKNE','Dust in the Wind':'https://www.youtube.com/watch?v=tvwsFfmKw6A','Wish You Were Here':'https://www.youtube.com/watch?v=sG_K8sGflBY','Landslide':'https://www.youtube.com/watch?v=SERxZkTyQAg'};
 export const uid=()=>globalThis.crypto?.randomUUID?.()||`${Date.now()}-${Math.random().toString(36).slice(2)}`;
 export function dayKey(date=new Date()){return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;}
 export const weekDay=(date=new Date())=>(date.getDay()+6)%7;
