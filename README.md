@@ -1,22 +1,23 @@
-# Stillblade
+# repertoire
 
-A mobile-first Three.js sword duel: ivory samurai versus an AI ronin, first to three rounds. No build step or server backend.
+A personal guitar practice journal, hosted at https://willbrown1.github.io/stillblade/ using the existing repository.
 
-## Play locally
+- Add and edit songs, artists, song BPM, default practice minutes, YouTube lesson links, and notes.
+- Tap the circle next to a song to start its timer. Elapsed time is saved as you play, with a filling progress ring and a completion chime.
+- Open a song for a month-by-month calendar, practice totals, an embedded lesson, and an optional metronome.
+- Assign songs and minutes to each weekday, enable Run schedule, and start today's automatically generated queue. All practice counts toward that day's goal; extra practice remains available.
+- The metronome supports 20–300 BPM, 2/3/4/6 beats per bar, and optional tempo increases after a configurable number of bars up to a target BPM.
 
-Run `node serve.cjs`, then open `http://localhost:4173`. For a phone on the same Wi-Fi, use your computer's LAN IP and port 4173 (your firewall must allow access). ES modules require HTTP; opening index.html directly is not supported.
+## Data
 
-Run `node combat.test.cjs` for combat behavior checks.
+Songs, plans, notes, and history are stored in localStorage in the current browser/device. There is no account or server-side sync. Export/import a JSON journal to back up or transfer data. Initial songs are clearly labeled starter songs with no fabricated practice history; edit or remove them. Song tempos are editable practice references, not authoritative recording measurements.
 
-Mobile: drag the left stick to move, tap Strike, and hold Guard. The first 190 ms of a guard can parry an incoming hit, staggering the attacker. Desktop: WASD, Space, Shift; Escape pauses. Each hit deals 25 damage. Strikes and blocks cost stamina; stamina regenerates when you lower your guard. Fighters automatically face each other. An attack's windup leaves a deliberate opening.
+Timers use timestamps and recover on reload, stop at the chosen duration, and split credited time at local midnight. Paused time is excluded. Keep the page open and device awake for the completion sound; mobile browsers can restrict background audio. A screen wake lock is requested while timing where supported. Metronome audio stops when the song card closes. YouTube embeds require internet access and may be restricted by the video's owner; each lesson also links directly to YouTube.
 
-## GitHub Pages
+## Development
 
-1. Create a GitHub repository and upload these files, including `.github/workflows/pages.yml`, to its `main` branch.
-2. In the repository's **Settings → Pages → Build and deployment**, choose **GitHub Actions**.
-3. Run **Deploy to GitHub Pages** in the Actions tab, or push a commit to `main`.
-4. The deployment supplies your Pages URL, typically `https://YOUR-USERNAME.github.io/YOUR-REPOSITORY/`.
+No dependencies or package installation. Run `node build.cjs` after editing `app.js`, `journal.mjs`, or `metronome.mjs`. The generated `app.bundle.js` is committed for static hosting. Run `node serve.cjs` for a preview on http://localhost:4173.
 
-All asset paths are relative, so repository subpaths work. The workflow uploads the static folder directly. Three.js is pinned to 0.170.0 on jsDelivr; fonts come from Google Fonts with local fallback fonts. Internet access is required for Three.js.
+Run tests with `TZ=America/New_York node --test journal.test.mjs` (PowerShell: `$env:TZ='America/New_York'; node --test journal.test.mjs`). Tests cover timers, pause/resume, reload recovery, midnight/daylight-saving boundaries, weekly queues, backup validation, YouTube parsing, and metronome tempo ramps.
 
-This is single-player 1v1 against AI. It does not include network multiplayer, accounts, or a backend. Audio is synthesized locally and off by default. The application pauses when the tab loses focus.
+GitHub Pages serves the main branch root. The old repository name and URL are retained. No journal data or credentials are uploaded to GitHub; only app source is deployed.
