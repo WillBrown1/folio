@@ -26,7 +26,7 @@ Song lessons can be added in Edit song. YouTube embedding depends on video-owner
 
 Run `node build.cjs` after changing source modules or style.css. The generated bundle and hashed asset URLs are committed for static GitHub Pages hosting. Run `node serve.cjs` for local preview. Supabase configuration and setup are in `backend/SETUP.md`.
 
-Tests: `node --test journal.test.mjs social.test.mjs cloud-journal.test.mjs`. SQL authorization tests run inside rolled-back transactions; no test accounts remain and no emails are sent.
+Tests: `node --test journal.test.mjs social.test.mjs cloud-journal.test.mjs account-gate.test.cjs`. SQL authorization tests run inside rolled-back transactions; no test accounts remain and no emails are sent.
 
 Local development uses the configured real account backend. Do not use production accounts for destructive testing.
 
