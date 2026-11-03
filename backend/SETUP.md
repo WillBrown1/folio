@@ -10,6 +10,7 @@ The GitHub Pages frontend uses Supabase Auth and PostgreSQL. `social-config.json
 
 ## Behavior
 
+- Current project setting: email confirmation is disabled with the owner's approval. Email/password accounts can sign up immediately. Email ownership is not verified; email password recovery requires a custom SMTP provider.
 - People create an account with email, password and a display name, then sign in with email and password. Passwords are handled by Supabase Auth and are never stored in the journal. Email addresses are not exposed to friends.
 - Friend codes create pending requests. Only the recipient can accept. Either endpoint can decline, cancel or remove the relationship.
 - Practice sharing is opt-in. Only new practice recorded while sharing is enabled is uploaded. Private notes and preexisting journal history are not uploaded. Disabling sharing hides existing shared times from other members.
