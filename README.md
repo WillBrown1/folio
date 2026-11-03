@@ -1,34 +1,27 @@
 # repertoire
 
-A personal guitar practice journal, hosted at https://willbrown1.github.io/stillblade/ using the existing repository.
+Guitar practice journal at https://willbrown1.github.io/stillblade/.
 
-- Add and edit songs, artists, song BPM, default practice minutes, YouTube lesson links, and notes.
-- Tap the circle next to a song to start its timer. Elapsed time is saved as you play, with a filling progress ring and a completion chime.
-- Open a song for a month-by-month calendar, practice totals, an embedded lesson, and an optional metronome.
-- Assign songs and minutes to each weekday, enable Run schedule, and start today's automatically generated queue. All practice counts toward that day's goal; extra practice remains available.
-- The metronome supports 20–300 BPM, 2/3/4/6 beats per bar, and optional tempo increases after a configurable number of bars up to a target BPM.
+## Practice
 
-## Data
+The main view is a song list. Empty circular buttons open a practice card. The large timer counts up for the current session; Today shows the total accumulated for that song on the local calendar day. The ring fills green toward the scheduled daily target, or the song's default practice duration when unscheduled. It stays full after reaching the target while the timer keeps recording.
 
-Songs, plans, notes, and history are stored in localStorage in the current browser/device. There is no account or server-side sync. Export/import a JSON journal to back up or transfer data. Initial songs are clearly labeled starter songs with no fabricated practice history; edit or remove them. Song tempos are editable practice references, not authoritative recording measurements.
+Pause excludes elapsed time until resumed. Finish & save stops the session. Closing the card hides it without stopping; use the header's practice button or the song circle to reopen it. On mobile the card fills the screen. Timers recover after reload and split time at local midnight. They continue until paused or finished, including while the browser is closed. Keep the page open and device awake for the target chime.
 
-Timers use timestamps and recover on reload, stop at the chosen duration, and split credited time at local midnight. Paused time is excluded. Keep the page open and device awake for the completion sound; mobile browsers can restrict background audio. A screen wake lock is requested while timing where supported. Metronome audio stops when the song card closes. YouTube embeds require internet access and may be restricted by the video's owner; each lesson also links directly to YouTube.
+The header contains a persistent light/dark theme toggle. Initial theme follows the device setting. All decorative messages and motivational copy have been removed.
+
+## Songs and schedules
+
+Add or edit songs, artists, BPM, default minutes, lessons and notes. Song details include a calendar, totals and an optional metronome with tempo ramps. The weekly schedule assigns songs and durations to each day. All time on a song counts toward the day's target, including extra sessions.
+
+Songs, plans, notes and history are stored in the current browser/device without an account or server sync. Export/import a JSON backup to transfer data. Clearing browser data removes the journal. Sample songs may be edited or removed. Only source files are deployed to GitHub.
+
+Starter lesson links: [Blackbird](https://www.youtube.com/watch?v=mEn2SEwZKNE), [Dust in the Wind](https://www.youtube.com/watch?v=tvwsFfmKw6A), [Wish You Were Here](https://www.youtube.com/watch?v=sG_K8sGflBY), [Landslide](https://www.youtube.com/watch?v=SERxZkTyQAg). YouTube embedding depends on video-owner settings. Each lesson includes an external YouTube link.
 
 ## Development
 
-No dependencies or package installation. Run `node build.cjs` after editing `app.js`, `journal.mjs`, or `metronome.mjs`. The generated `app.bundle.js` is committed for static hosting. Run `node serve.cjs` for a preview on http://localhost:4173.
+Run `node build.cjs` after changing app.js, journal.mjs, metronome.mjs or style.css. The generated bundle and hashed asset URLs are committed for static GitHub Pages hosting. No dependencies required. Run `node serve.cjs` for local preview.
 
-Run tests with `TZ=America/New_York node --test journal.test.mjs` (PowerShell: `$env:TZ='America/New_York'; node --test journal.test.mjs`). Tests cover timers, pause/resume, reload recovery, midnight/daylight-saving boundaries, weekly queues, backup validation, YouTube parsing, and metronome tempo ramps.
+Tests: in PowerShell use `$env:TZ='America/New_York'; node --test journal.test.mjs`. Tests cover elapsed time, target notification without stopping, pause/reload, midnight and daylight-saving boundaries, weekly queues, backup validation, lesson URLs and metronome ramps.
 
-GitHub Pages serves the main branch root. The old repository name and URL are retained. No journal data or credentials are uploaded to GitHub; only app source is deployed.
-
-## Starter lesson sources
-
-Starter songs include freely accessible lessons from their teachers' YouTube channels. These can be replaced in Edit song:
-
-- [Blackbird — JustinGuitar Songs](https://www.youtube.com/watch?v=mEn2SEwZKNE)
-- [Dust in the Wind — Marty Music](https://www.youtube.com/watch?v=tvwsFfmKw6A)
-- [Wish You Were Here — JustinGuitar Songs](https://www.youtube.com/watch?v=sG_K8sGflBY)
-- [Landslide — Marty Music](https://www.youtube.com/watch?v=SERxZkTyQAg)
-
-For UI testing, `?preview=1` uses a separate local journal so test practice never changes the normal journal.
+`?preview=1` uses separate test journal data. Theme preference is shared with the main journal.
