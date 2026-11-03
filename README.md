@@ -21,3 +21,14 @@ No dependencies or package installation. Run `node build.cjs` after editing `app
 Run tests with `TZ=America/New_York node --test journal.test.mjs` (PowerShell: `$env:TZ='America/New_York'; node --test journal.test.mjs`). Tests cover timers, pause/resume, reload recovery, midnight/daylight-saving boundaries, weekly queues, backup validation, YouTube parsing, and metronome tempo ramps.
 
 GitHub Pages serves the main branch root. The old repository name and URL are retained. No journal data or credentials are uploaded to GitHub; only app source is deployed.
+
+## Starter lesson sources
+
+Starter songs include freely accessible lessons from their teachers' YouTube channels. These can be replaced in Edit song:
+
+- [Blackbird — JustinGuitar Songs](https://www.youtube.com/watch?v=mEn2SEwZKNE)
+- [Dust in the Wind — Marty Music](https://www.youtube.com/watch?v=tvwsFfmKw6A)
+- [Wish You Were Here — JustinGuitar Songs](https://www.youtube.com/watch?v=sG_K8sGflBY)
+- [Landslide — Marty Music](https://www.youtube.com/watch?v=SERxZkTyQAg)
+
+For UI testing, `?preview=1` uses a separate local journal so test practice never changes the normal journal.
