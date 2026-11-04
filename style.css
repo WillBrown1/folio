@@ -12,6 +12,57 @@
 .auth-required .account-sync-status{display:none}
 @media(max-width:600px){.account-sync-status{max-width:125px;font-size:10px}.auth-required .workspace{padding-top:20px}}
 /* Keep mobile browsers from automatically zooming into small form text. */
+.jam-refresh{display:grid;place-items:center;width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:var(--surface)}
+.jam-refresh svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.jam-status{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:0 0 16px;border-bottom:1px solid var(--line)}
+.jam-sharing{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)}
+.jam-sharing i{width:6px;height:6px;border-radius:50%;background:var(--muted)}
+.jam-sharing.enabled i{background:var(--green)}
+.jam-section .section-heading{margin:25px 0 13px;gap:12px}
+.jam-section .section-heading h2{display:flex;align-items:center;gap:8px;font-size:16px}
+.jam-count{font-size:11px;font-weight:400;color:var(--muted);font-variant-numeric:tabular-nums}
+.jam-section-actions{display:flex;align-items:center;gap:17px}
+.jam-section-actions button,.jam-section .section-heading>.secondary{min-height:40px}
+.jam-empty{padding:23px 16px;font-size:12px;color:var(--muted);border:1px dashed var(--line);border-radius:8px;text-align:center;width:100%;grid-column:1/-1}
+.friend-list:has(.jam-empty){border:0;background:none}
+.jam-friend{border-bottom:1px solid var(--line)}
+.jam-friend:last-child{border:0}
+.jam-friend summary{display:flex;align-items:center;gap:12px;min-height:68px;padding:14px 16px;cursor:pointer;list-style:none}
+.jam-friend summary::-webkit-details-marker{display:none}
+.jam-friend summary strong{flex:1;min-width:0;font-size:13px;font-weight:500;overflow-wrap:anywhere}
+.jam-friend .friend-time{font-size:14px;white-space:nowrap}
+.jam-friend-actions{padding:0 16px 12px 63px}
+.jam-requests{margin-top:20px;border-top:1px solid var(--line);padding:16px 0}
+.jam-requests>summary{font-size:13px;cursor:pointer;min-height:30px}
+.jam-requests .jam-count{margin-left:6px}
+.jam-account-name{font-size:17px;margin:18px 0}
+.jam-share-control{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 0;border-block:1px solid var(--line)}
+.jam-share-control strong{font-size:14px;font-weight:500}
+.jam-share-control small{display:block;font-size:12px;color:var(--muted);line-height:1.6;margin-top:6px}
+.jam-share-control input{width:22px;height:22px;flex-shrink:0;accent-color:var(--green)}
+.jam-code{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:9px 15px;padding:20px 0;margin-top:15px;border-top:1px solid var(--line)}
+.jam-code>span{font-size:11px;color:var(--muted);grid-column:1/-1}
+.jam-code code{font-size:15px;overflow-wrap:anywhere}
+.jam-signout{margin-top:15px;min-height:44px}
+.jam-song-cards{display:none}
+@media(max-width:600px){
+ .jam-status{padding-bottom:13px}.jam-section .section-heading h2{font-size:15px}
+ .jam-section .primary,.jam-section .secondary{padding:10px 12px;font-size:12px}
+ .jam-section .shared-set-card{padding:17px;gap:7px;min-height:82px}
+ .jam-section .shared-set-card strong{font-size:16px}.jam-section .shared-set-card span{font-size:12px}
+ .jam-friend summary{padding:12px;gap:10px}.jam-friend-actions{padding-left:57px}
+ #socialDialog{width:100%;max-width:100%;max-height:94dvh;margin:auto 0 0;border-radius:16px 16px 0 0;padding:27px 20px max(24px,env(safe-area-inset-bottom))}
+ #socialDialog .set-matrix-wrap{display:none}
+ .jam-song-cards{display:grid;gap:12px}
+ .jam-song-card{padding:17px;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+ .jam-song-card h3{font-size:15px;font-weight:500;line-height:1.5}
+ .jam-song-card>p{font-size:11px;margin:3px 0 17px;line-height:1.6}
+ .jam-member{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px 12px;margin-top:14px;font-size:12px}
+ .jam-member>span{overflow-wrap:anywhere}.jam-member>strong{font-weight:500;font-variant-numeric:tabular-nums}
+ .jam-member .member-progress{grid-column:1/-1;width:100%;margin:0;height:4px}
+ .set-toolbar{gap:8px}.set-toolbar .primary,.set-toolbar .secondary{min-height:42px;font-size:12px;padding:10px 12px}
+ .set-pick-row>span{min-width:0;overflow-wrap:anywhere}.set-pick-row input[type=number]{width:65px;flex-shrink:0}
+}
 @media(max-width:850px),(pointer:coarse){
  input,textarea,select{font-size:16px!important}
 }
