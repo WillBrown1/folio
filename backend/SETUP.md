@@ -32,3 +32,7 @@ The GitHub Pages frontend uses Supabase Auth and PostgreSQL. `social-config.json
 ## Best attempts
 
 Run `backend/best-attempts.sql` once after the existing migrations, then `backend/best-attempts-test.sql`. The latter rolls back all fixtures. The private `repertoire-attempts` Storage bucket enforces owner uploads and owner/explicitly-shared accepted-friend reads. Metadata is keyed by stable journal song ID and saved through an authenticated RPC. Set membership alone grants no audio access. Replacement uploads use immutable paths and delete the previous object only after metadata commits. Run `node --test best-attempts.test.mjs` for recorder lifecycle, preview, retry, validation and card layout checks. Real hardware microphone capture remains a manual browser check.
+
+## Song exchange
+
+Run `backend/song-sharing.sql` once and `backend/song-sharing-test.sql` for rolled-back authorization fixtures. `repertoire_song_shares` stores explicit per-recipient song snapshots. Only the sender and recipient, while still accepted friends, can read them; only the sender can create/update a snapshot. Set-only membership grants no access. Removing friendship hides the snapshot; already imported copies remain the recipient’s journal data. Notes/lessons in the full-journal projection remain excluded. Matching friend recordings use the existing attempt metadata/Storage RLS without widening audio access. No new real-time publication is enabled; shares refresh through the normal visible-page poll.
