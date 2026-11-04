@@ -24,7 +24,9 @@ Sign-in uses Supabase's existing project storage key with local storage and an I
 
 Existing browser data imports once into the first account used on that browser; the original journal is retained locally. Songs are matched by ID or title/artist, schedules are combined, and overlapping historical totals use the larger value to avoid counting the same old session twice. Existing cloud notes take precedence when both copies contain notes. Export/import remains available for manual backups. The supplied 23 songs are the default for new accounts, with unset BPM and lessons and a ten-minute target.
 
-Journal writes use revision checks and durable mutation IDs. Independent song-field and weekday edits merge, practice-time deltas add across devices, and retries are idempotent. For simultaneous edits to the same field or weekday, the device currently saving takes precedence. Full journals are private even when practice sharing is enabled; only the separately opted-in practice events are visible to friends and set members.
+Journal writes use revision checks and durable mutation IDs. Independent song-field and weekday edits merge, practice-time deltas add across devices, and retries are idempotent. For simultaneous edits to the same field or weekday, the device currently saving takes precedence. Raw journals, notes, lessons, confidence ratings and Focus settings remain private. Share practice exposes only the separately recorded shared sessions to accepted friends and set members. A separate Share repertoire & history opt-in also exposes a safe song catalog and daily historical totals to accepted friends; it requires Share practice to remain enabled.
+
+Jam includes a daily leaderboard of the current account and accepted friends. Sharing-disabled people are shown without a rank. Shared sets default to All time and offer Today, 7 days and 30 days, with per-song combined totals, member totals and set totals. Historical shared records are aggregated on the server; today's live increments are overlaid without counting today's records twice. Clicking a person opens their repertoire and per-song daily history. Without the extra repertoire/history opt-in, only previously shared sessions appear. Unplayed songs appear when full repertoire sharing is enabled. Day lists load in blocks of thirty. The date periods use the displayed local calendar-date convention.
 
 Song lessons can be added in Edit song. YouTube embedding depends on video-owner settings; each lesson includes an external YouTube link.
 
@@ -36,7 +38,7 @@ The live counter combines confirmed practice records with only the unconfirmed p
 
 Run `node build.cjs` after changing source modules or style.css. The generated bundle and hashed asset URLs are committed for static GitHub Pages hosting. Run `node serve.cjs` for local preview. Supabase configuration and setup are in `backend/SETUP.md`.
 
-Tests: `node --test journal.test.mjs social.test.mjs cloud-journal.test.mjs account-gate.test.cjs live-practice.test.mjs focus.test.mjs auth-session.test.mjs`. SQL authorization tests run inside rolled-back transactions; no test accounts remain and no emails are sent.
+Tests: `node --test journal.test.mjs social.test.mjs cloud-journal.test.mjs account-gate.test.cjs live-practice.test.mjs focus.test.mjs auth-session.test.mjs jam-stats.test.mjs`. SQL authorization tests run inside rolled-back transactions; no test accounts remain and no emails are sent.
 
 Local development uses the configured real account backend. Do not use production accounts for destructive testing.
 
