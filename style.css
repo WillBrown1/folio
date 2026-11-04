@@ -207,3 +207,4 @@
 .daily-budget-form>div{display:flex;align-items:center;gap:9px}.daily-budget-form input{width:70px;min-height:42px;font-size:16px;padding:9px}.daily-budget-form button{min-height:42px;padding:9px 13px}.daily-budget-form .text-button{padding:9px 0}.daily-budget-form span{color:var(--muted)}
 .daily-budget-note{font-size:11px;color:var(--muted);line-height:1.5;margin:12px 0 0}
 @media(max-width:420px){.daily-budget{padding:16px}.daily-budget-form{align-items:flex-start;flex-direction:column;gap:10px}.daily-budget-form>div{width:100%}.daily-budget-form input{flex:1;min-width:0;max-width:110px}}
+.daily-limit-settings .daily-budget-form{margin-top:0;padding-top:0;border-top:0}
