@@ -1,6 +1,6 @@
-# repertoire
+# Folio
 
-Guitar practice journal at https://willbrown1.github.io/stillblade/.
+Guitar practice journal at https://willbrown1.github.io/folio/.
 
 ## Practice
 

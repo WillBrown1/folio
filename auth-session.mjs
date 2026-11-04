@@ -10,7 +10,7 @@ export function persistentSessionStorage(primary,backup=indexedSessionBackup()){
  if(!primary)try{primary=globalThis.localStorage;}catch{}
  return{
   async getItem(key){let value=null;try{value=primary?.getItem(key)??null;}catch{}if(value!==null){await backup.set(key,value);return value;}value=await backup.get(key);if(value!==null)try{primary.setItem(key,value);}catch{}return value;},
-  async setItem(key,value){let stored=false;try{primary.setItem(key,value);stored=true;}catch{}const backed=await backup.set(key,value);if(!stored&&!backed)throw Error('This browser cannot remember your sign-in. Open Repertoire in a regular Safari or Chrome tab.');},
+  async setItem(key,value){let stored=false;try{primary.setItem(key,value);stored=true;}catch{}const backed=await backup.set(key,value);if(!stored&&!backed)throw Error('This browser cannot remember your sign-in. Open Folio in a regular Safari or Chrome tab.');},
   async removeItem(key){await backup.remove(key);try{primary.removeItem(key);}catch{}}
  };
 }
