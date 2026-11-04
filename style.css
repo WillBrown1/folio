@@ -32,6 +32,44 @@
 .jam-friend summary strong{flex:1;min-width:0;font-size:13px;font-weight:500;overflow-wrap:anywhere}
 .jam-friend .friend-time{font-size:14px;white-space:nowrap}
 .jam-friend-actions{padding:0 16px 12px 63px}
+.simple-song-heading{display:flex;align-items:center;gap:15px;padding:9px 22px 0 0}
+.simple-song-heading>div{flex:1;min-width:0}
+.simple-song-heading h2{margin:0;padding:0;font-size:25px;line-height:1.35}
+.simple-song-artist{display:block;font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5}
+.song-day-ring{width:48px;height:48px;min-width:48px;padding:0;border-radius:50%;background:none}
+.song-day-ring svg{width:48px;height:48px;display:block;transform:rotate(-90deg)}
+.song-day-ring circle{fill:none;stroke-width:2.5}
+.simple-song-rating{margin:16px 0 10px}
+.simple-song-rating .confidence-control{margin:0}
+.simple-song-calendar{padding-bottom:16px;border-bottom:1px solid var(--line)}
+.simple-song-calendar .month-head{margin-top:8px}
+.best-attempt-section,.simple-song-lesson{padding-top:22px;margin-top:0}
+.best-attempt-section h3,.song-section-heading h3{font-size:15px;font-weight:500;margin-bottom:12px}
+.song-section-heading{display:flex;align-items:center;justify-content:space-between;gap:15px}
+.song-section-heading .text-button{margin-bottom:10px}
+.record-actions{display:flex;gap:9px;align-items:center;margin-top:12px}
+.record-actions>.secondary,.record-stop{min-height:43px;font-size:12px;padding:11px 16px}
+.upload-attempt{cursor:pointer}
+.record-stop{background:#a64f43;color:#fff;border-radius:6px;font-variant-numeric:tabular-nums}
+.attempt-draft{margin-top:14px;background:var(--surface2);border:1px solid var(--line);padding:12px;border-radius:8px}
+.attempt-draft audio,.attempt-listen audio{display:block;width:100%;height:45px}
+.attempt-save-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px}
+.attempt-save-actions>.primary,.attempt-save-actions>.secondary{min-height:42px;padding:10px 12px;font-size:12px}
+.attempt-sharing{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin-top:8px;font-size:11px;color:var(--muted)}
+.attempt-sharing .text-button{font-size:11px;min-height:34px}
+.attempt-error{color:#c77b70!important;font-size:12px!important;line-height:1.6!important;margin:12px 0 0!important}
+.song-lesson-form{display:flex;align-items:center;gap:8px}
+.song-lesson-form input{min-width:0}
+.song-lesson-form button{flex-shrink:0;min-height:44px}
+.song-card-tools{margin-top:25px;padding-top:17px;border-top:1px solid var(--line)}
+.song-card-tools>summary{cursor:pointer;min-height:36px;font-size:12px;color:var(--muted)}
+.song-card-tools .song-progress-controls{margin-top:10px;border-top:0;padding-top:0}
+.song-settings-actions{display:flex;gap:8px;margin-top:16px}
+.song-lifetime{font-size:11px!important;margin:15px 0!important}
+.friend-best-attempt{margin:12px 0 0;padding-top:14px;border-top:1px solid var(--line)}
+.friend-best-attempt>span{display:block;font-size:11px;margin-bottom:10px;color:var(--muted)}
+.friend-best-attempt .secondary{font-size:12px;min-height:40px}
+@media(max-width:600px){.simple-song-heading h2{font-size:23px}.simple-song-heading{gap:12px}.song-day-ring,.song-day-ring svg{width:44px;height:44px;min-width:44px}.song-lesson-form .secondary{padding:10px 12px;font-size:11px}.attempt-save-actions{gap:8px}.attempt-save-actions .text-button{min-height:38px}.simple-song-calendar .calendar-day{min-height:40px}}
 .jam-leaderboard{display:grid;background:var(--surface);border:1px solid var(--line);border-radius:9px;overflow:hidden}
 .jam-leader-row{display:flex;align-items:center;gap:12px;width:100%;padding:15px 14px;text-align:left;background:none;border-bottom:1px solid var(--line);min-height:76px}
 .jam-leader-row:last-child{border-bottom:0}

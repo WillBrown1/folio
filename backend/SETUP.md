@@ -28,3 +28,7 @@ The GitHub Pages frontend uses Supabase Auth and PostgreSQL. `social-config.json
 ## Verification
 
 `social.test.mjs` covers canonical song matching, durable upload queues, retry acknowledgment, account isolation, accumulated time, and set import. `backend/authorization-test.sql` runs database-level authorization checks inside a rolled-back transaction, using test users with `.invalid` addresses and no email delivery.
+
+## Best attempts
+
+Run `backend/best-attempts.sql` once after the existing migrations, then `backend/best-attempts-test.sql`. The latter rolls back all fixtures. The private `repertoire-attempts` Storage bucket enforces owner uploads and owner/explicitly-shared accepted-friend reads. Metadata is keyed by stable journal song ID and saved through an authenticated RPC. Set membership alone grants no audio access. Replacement uploads use immutable paths and delete the previous object only after metadata commits. Run `node --test best-attempts.test.mjs` for recorder lifecycle, preview, retry, validation and card layout checks. Real hardware microphone capture remains a manual browser check.

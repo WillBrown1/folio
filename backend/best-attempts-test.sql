@@ -1,0 +1,45 @@
+-- Storage object rows below are transaction-only fixtures, not uploaded audio.
+begin;
+insert into auth.users(id,email) values('a1111111-1111-4111-8111-111111111111','audio-alice@example.invalid'),('b2222222-2222-4222-8222-222222222222','audio-bob@example.invalid'),('c3333333-3333-4333-8333-333333333333','audio-member@example.invalid'),('d4444444-4444-4444-8444-444444444444','audio-outsider@example.invalid');
+insert into public.repertoire_profiles(id,display_name) values('a1111111-1111-4111-8111-111111111111','Audio Alice'),('b2222222-2222-4222-8222-222222222222','Audio Bob'),('c3333333-3333-4333-8333-333333333333','Audio Member'),('d4444444-4444-4444-8444-444444444444','Audio Outsider');
+insert into public.repertoire_friendships(requester,recipient,status) values('a1111111-1111-4111-8111-111111111111','b2222222-2222-4222-8222-222222222222','accepted');
+insert into public.repertoire_sets(id,owner_id,name) values('e5555555-5555-4555-8555-555555555555','a1111111-1111-4111-8111-111111111111','Audio test');
+insert into public.repertoire_set_members(set_id,user_id) values('e5555555-5555-4555-8555-555555555555','a1111111-1111-4111-8111-111111111111'),('e5555555-5555-4555-8555-555555555555','c3333333-3333-4333-8333-333333333333');
+set local role authenticated;
+select set_config('request.jwt.claim.sub','a1111111-1111-4111-8111-111111111111',true);
+insert into storage.objects(bucket_id,name) values('repertoire-attempts','a1111111-1111-4111-8111-111111111111/f6666666-6666-4666-8666-666666666666.m4a');
+select public.repertoire_save_attempt('song-id','tune-artist','Tune','Artist','a1111111-1111-4111-8111-111111111111/f6666666-6666-4666-8666-666666666666.m4a','audio/mp4',200,2,false);
+select set_config('request.jwt.claim.sub','b2222222-2222-4222-8222-222222222222',true);
+do $$begin if exists(select 1 from public.repertoire_attempts) or exists(select 1 from storage.objects where bucket_id='repertoire-attempts') then raise exception 'FAIL: private recording leaked to friend';end if;
+begin insert into storage.objects(bucket_id,name) values('repertoire-attempts','a1111111-1111-4111-8111-111111111111/ffffffff-ffff-4fff-8fff-ffffffffffff.m4a');raise exception 'FAIL: upload to another account allowed';exception when insufficient_privilege then null;end;
+end $$;
+select set_config('request.jwt.claim.sub','a1111111-1111-4111-8111-111111111111',true);
+update public.repertoire_attempts set shared=true where user_id=auth.uid();
+select set_config('request.jwt.claim.sub','b2222222-2222-4222-8222-222222222222',true);
+do $$declare n integer;begin
+ if (select count(*) from public.repertoire_attempts)<>1 or (select count(*) from storage.objects where bucket_id='repertoire-attempts')<>1 then raise exception 'FAIL: accepted friend cannot read shared audio';end if;
+ update public.repertoire_attempts set shared=false;get diagnostics n=row_count;if n<>0 then raise exception 'FAIL: friend can change recording';end if;
+ begin perform public.repertoire_save_attempt('stolen','stolen-audio','Stolen','Artist','a1111111-1111-4111-8111-111111111111/f6666666-6666-4666-8666-666666666666.m4a','audio/mp4',200,2,true);raise exception 'FAIL: foreign object claimed';exception when raise_exception then if sqlerrm<>'Upload your audio first' then raise;end if;end;
+end $$;
+select set_config('request.jwt.claim.sub','c3333333-3333-4333-8333-333333333333',true);
+do $$begin if exists(select 1 from public.repertoire_attempts) or exists(select 1 from storage.objects where bucket_id='repertoire-attempts') then raise exception 'FAIL: set-only member sees audio';end if;end $$;
+select set_config('request.jwt.claim.sub','d4444444-4444-4444-8444-444444444444',true);
+do $$begin if exists(select 1 from public.repertoire_attempts) or exists(select 1 from storage.objects where bucket_id='repertoire-attempts') then raise exception 'FAIL: outsider sees audio';end if;end $$;
+select set_config('request.jwt.claim.sub','a1111111-1111-4111-8111-111111111111',true);
+insert into storage.objects(bucket_id,name) values('repertoire-attempts','a1111111-1111-4111-8111-111111111111/f7777777-7777-4777-8777-777777777777.m4a');
+do $$declare result jsonb;begin
+ result:=public.repertoire_save_attempt('song-id','renamed-tune-artist','Renamed Tune','Artist','a1111111-1111-4111-8111-111111111111/f7777777-7777-4777-8777-777777777777.m4a','audio/mp4',300,3,true);
+ if result->>'previous_path'<>'a1111111-1111-4111-8111-111111111111/f6666666-6666-4666-8666-666666666666.m4a' or (select count(*) from public.repertoire_attempts)<>1 then raise exception 'FAIL: replacement is not one-per-song';end if;
+end $$;
+select set_config('request.jwt.claim.sub','b2222222-2222-4222-8222-222222222222',true);
+do $$begin if (select count(*) from storage.objects where bucket_id='repertoire-attempts')<>1 or exists(select 1 from storage.objects where name like '%f6666666%') then raise exception 'FAIL: replaced audio remains readable';end if;end $$;
+select set_config('request.jwt.claim.sub','a1111111-1111-4111-8111-111111111111',true);
+update public.repertoire_attempts set shared=false where user_id=auth.uid();
+select set_config('request.jwt.claim.sub','b2222222-2222-4222-8222-222222222222',true);
+do $$begin if exists(select 1 from public.repertoire_attempts) or exists(select 1 from storage.objects where bucket_id='repertoire-attempts') then raise exception 'FAIL: unsharing did not revoke access';end if;end $$;
+set local role anon;
+do $$begin begin perform count(*) from public.repertoire_attempts;raise exception 'FAIL: anonymous metadata access';exception when insufficient_privilege then null;end;if exists(select 1 from storage.objects where bucket_id='repertoire-attempts') then raise exception 'FAIL: anonymous audio access';end if;end $$;
+reset role;
+do $$begin if (select public from storage.buckets where id='repertoire-attempts') then raise exception 'FAIL: audio bucket is public';end if;end $$;
+rollback;
+select 'PASS: private audio, owner uploads, accepted-friend sharing, set-only and outsider denial, replacement, unsharing and anonymous denial' as result;

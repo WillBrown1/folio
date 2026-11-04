@@ -42,3 +42,5 @@ Tests: `node --test journal.test.mjs social.test.mjs cloud-journal.test.mjs acco
 
 Local development uses the configured real account backend. Do not use production accounts for destructive testing.
 
+
+Song cards now show the daily ring beside the title, stars, calendar, best attempt, and lesson. Extra settings are collapsed. Record audio in the browser or upload an audio file, preview it, then save privately or share with accepted friends. Limits: ten minutes and 20 MB. Microphone use requires browser permission. Shared attempts appear in the owner's Jam repertoire; private audio uses authenticated Storage downloads. Sharing is separate from practice/history sharing. JSON journal backups do not include audio recordings.
