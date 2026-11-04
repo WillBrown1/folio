@@ -32,6 +32,46 @@
 .jam-friend summary strong{flex:1;min-width:0;font-size:13px;font-weight:500;overflow-wrap:anywhere}
 .jam-friend .friend-time{font-size:14px;white-space:nowrap}
 .jam-friend-actions{padding:0 16px 12px 63px}
+.jam-leaderboard{display:grid;background:var(--surface);border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.jam-leader-row{display:flex;align-items:center;gap:12px;width:100%;padding:15px 14px;text-align:left;background:none;border-bottom:1px solid var(--line);min-height:76px}
+.jam-leader-row:last-child{border-bottom:0}
+.jam-leader-row:hover{background:var(--surface2)}
+.jam-rank{width:21px;text-align:center;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums;flex-shrink:0}
+.jam-leader-row .jam-friend-name>strong{font-size:13px;font-weight:500}
+.jam-leader-row .jam-friend-name>strong>small{font-size:10px;color:var(--muted)}
+.jam-ranges{display:flex;gap:4px;background:var(--surface2);border:1px solid var(--line);border-radius:7px;padding:4px;margin:18px 0}
+.jam-ranges button{flex:1;min-height:38px;padding:8px 10px;background:none;font-size:12px;color:var(--muted);border-radius:4px;white-space:nowrap}
+.jam-ranges button[aria-pressed=true]{background:var(--surface);color:var(--ink)}
+.jam-history-songs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.jam-history-songs .jam-song-card{padding:17px;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+.jam-history-songs h3{font-size:15px;font-weight:500;line-height:1.5}
+.jam-history-songs .jam-song-card>p{font-size:11px;margin:4px 0 17px}
+.jam-history-heading{display:flex;justify-content:space-between;gap:14px;align-items:start}
+.jam-history-heading>strong{flex-shrink:0;font-size:11px;font-weight:400;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:3px}
+.jam-member-link{font:inherit;padding:0;background:none;text-align:left;color:var(--ink)}
+.jam-set-totals{margin-top:22px;padding-top:16px;border-top:1px solid var(--line)}
+.jam-set-totals h3{font-size:14px;margin-bottom:12px}
+.jam-set-totals>div{display:flex;justify-content:space-between;gap:15px;padding:9px 0;font-size:12px}
+.jam-set-totals strong{font-weight:500;font-variant-numeric:tabular-nums}
+.jam-person-stats{display:flex;background:var(--surface2);border:1px solid var(--line);border-radius:8px;padding:16px 0;margin:17px 0}
+.jam-person-stats>div{flex:1;min-width:0;text-align:center;border-right:1px solid var(--line)}
+.jam-person-stats>div:last-child{border:0}
+.jam-person-stats strong{display:block;font-size:19px;font-weight:500;font-variant-numeric:tabular-nums}
+.jam-person-stats small{display:block;margin-top:6px;font-size:10px;color:var(--muted)}
+.jam-person-songs{margin-top:20px;border:1px solid var(--line);border-radius:8px;background:var(--surface);overflow:hidden}
+.jam-person-song{border-bottom:1px solid var(--line)}
+.jam-person-song:last-child{border:0}
+.jam-person-song summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 15px;list-style:none;cursor:pointer}
+.jam-person-song summary::-webkit-details-marker{display:none}
+.jam-person-song summary>span{min-width:0}
+.jam-person-song strong{font-size:13px;font-weight:500;line-height:1.5;font-variant-numeric:tabular-nums}
+.jam-person-song summary>strong{flex-shrink:0}
+.jam-person-song summary small{display:block;font-size:11px;color:var(--muted);margin-top:5px}
+.jam-practice-days{padding:0 15px 14px}
+.jam-practice-days>div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:11px;color:var(--muted)}
+.jam-practice-days>div>strong{font-size:11px;color:var(--ink)}
+.jam-remove-friend{margin-top:20px;min-height:44px}
+@media(max-width:600px){.jam-history-songs{grid-template-columns:1fr}.jam-leader-row{gap:9px;padding:13px 10px}.jam-leader-row .friend-time{font-size:13px}.jam-leader-row .person-avatar{width:31px;height:31px}.jam-rank{width:15px}.jam-ranges button{font-size:11px;padding:8px 6px}.jam-history-heading{gap:10px}.jam-history-heading>strong{font-size:10px}.jam-section .section-heading h2:has(.jam-live-connection){font-size:14px;gap:5px}}
 .schedule-heading{align-items:center}
 .schedule-heading .switch-label{font-size:12px;gap:9px}
 .schedule-heading .switch-label input{width:20px;height:20px}
