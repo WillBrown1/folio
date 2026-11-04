@@ -39,8 +39,10 @@ export function monday(date=new Date()){const d=new Date(date);d.setHours(0,0,0,
 export function freshState(){return migrateFocus({version:1,defaultsRevision:2,songs:DEFAULT_SONGS.map(makeDefaultSong),schedule:Array.from({length:7},()=>[]),scheduleEnabled:false,logs:{},active:null});}
 export function secondsFor(state,id,key=dayKey()){return Number(state.logs[key]?.[id])||0;}
 export function plannedQueue(state,date=new Date()){
- if(state.sharedPractice)return state.sharedPractice.songs.filter(p=>state.songs.some(s=>s.id===p.songId)).map(p=>({...p,song:state.songs.find(s=>s.id===p.songId),seconds:secondsFor(state,p.songId,dayKey(date))}));
- if(state.focusRevision>=1)return focusQueue(state,date);
+ if(state.sharedPractice&&!Array.isArray(state.sharedSets))return state.sharedPractice.songs.filter(p=>state.songs.some(s=>s.id===p.songId)).map(p=>({...p,song:state.songs.find(s=>s.id===p.songId),seconds:secondsFor(state,p.songId,dayKey(date))}));
+ if(state.focusRevision>=1){const queue=focusQueue(state,date),byId=new Map(queue.map(p=>[p.songId,p]));
+ for(const group of state.sharedSets||[])for(const item of group.songs){const song=state.songs.find(s=>s.id===item.songId);if(!song)continue;const existing=byId.get(song.id);if(existing)existing.minutes=Math.max(existing.minutes,item.minutes);else{const entry={...item,song,seconds:secondsFor(state,song.id,dayKey(date)),kind:'shared'};queue.push(entry);byId.set(song.id,entry);}}
+ return queue;}
  return state.scheduleEnabled?state.schedule[weekDay(date)].filter(p=>state.songs.some(s=>s.id===p.songId)).map(p=>({...p,song:state.songs.find(s=>s.id===p.songId),seconds:secondsFor(state,p.songId,dayKey(date))})):[];
 }
 export function todayQueue(state,date=new Date()){return applyPracticeBudget(plannedQueue(state,date),state.practiceBudget,date);}
