@@ -32,6 +32,10 @@
 .jam-friend summary strong{flex:1;min-width:0;font-size:13px;font-weight:500;overflow-wrap:anywhere}
 .jam-friend .friend-time{font-size:14px;white-space:nowrap}
 .jam-friend-actions{padding:0 16px 12px 63px}
+.schedule-heading{align-items:center}
+.schedule-heading .switch-label{font-size:12px;gap:9px}
+.schedule-heading .switch-label input{width:20px;height:20px}
+.week-total strong{font-weight:400}
 .jam-friend-name{flex:1;min-width:0;display:block}
 .jam-friend-name>strong{display:block}
 .jam-live-status{display:block!important;font-size:10px!important;font-weight:400;color:var(--muted);line-height:1.5;margin-top:4px;overflow-wrap:anywhere}
