@@ -8,7 +8,7 @@ export function allocateBudget(queue,minutes,logs={}){
  let extra=available-whole.reduce((a,b)=>a+b,0);
  const order=shares.map((n,i)=>({i,fraction:n-whole[i]})).sort((a,b)=>b.fraction-a.fraction||a.i-b.i);
  for(const {i} of order)if(extra>0&&needs[i]>0){whole[i]++;extra--;}
- return Object.fromEntries(queue.map((p,i)=>[p.songId,(logs[p.songId]||0)+whole[i]]));
+ return Object.fromEntries(queue.map((p,i)=>[p.songId,Math.floor(Math.min(logs[p.songId]||0,p.minutes*60))+whole[i]]));
 }
 export function makePracticeBudget(queue,minutes,logs={},date=new Date()){
  if(!Number.isInteger(minutes)||minutes<1||minutes>720)throw Error('Choose 1–720 minutes.');

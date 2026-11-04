@@ -17,6 +17,7 @@ test('setting a limit accounts for prior practice and extra songs without discar
  assert.deepEqual(logs,{a:240.3,extra:180.2});
  const exhausted=allocateBudget(queue,5,{a:600,extra:10});
  assert.deepEqual(exhausted,{a:600,b:0});
+ assert.equal(allocateBudget(queue,15,{a:603.7}).a,600,'a completed target is not inflated to its overrun');
 });
 test('song goals stay fixed while timers run and the daily preference carries to tomorrow',()=>{
  const state=freshState(),raw=plannedQueue(state,date),id=raw[0].songId;
