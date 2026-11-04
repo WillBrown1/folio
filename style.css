@@ -32,6 +32,15 @@
 .jam-friend summary strong{flex:1;min-width:0;font-size:13px;font-weight:500;overflow-wrap:anywhere}
 .jam-friend .friend-time{font-size:14px;white-space:nowrap}
 .jam-friend-actions{padding:0 16px 12px 63px}
+.jam-friend-name{flex:1;min-width:0;display:block}
+.jam-friend-name>strong{display:block}
+.jam-live-status{display:block!important;font-size:10px!important;font-weight:400;color:var(--muted);line-height:1.5;margin-top:4px;overflow-wrap:anywhere}
+.jam-live-status.online{color:var(--green)}
+.person-avatar{position:relative}
+.person-avatar.online:after{content:'';position:absolute;width:8px;height:8px;right:-1px;bottom:-1px;border:2px solid var(--surface);border-radius:50%;background:var(--green)}
+.friend-time strong{font-weight:500;font-variant-numeric:tabular-nums}
+.jam-live-connection{font-size:9px;font-weight:400;color:var(--muted);margin-left:2px}
+.jam-member>strong{align-self:center}
 .jam-requests{margin-top:20px;border-top:1px solid var(--line);padding:16px 0}
 .jam-requests>summary{font-size:13px;cursor:pointer;min-height:30px}
 .jam-requests .jam-count{margin-left:6px}

@@ -24,9 +24,13 @@ Song lessons can be added in Edit song. YouTube embedding depends on video-owner
 
 ## Development
 
+Jam shows online status and the active song when Share practice is enabled. Foreground clients send a heartbeat every five seconds; Supabase Realtime delivers live session, practice-record and sharing changes through the existing access policies. Visible counters tick once per second between updates. Pausing sends a new state; hiding a page sends offline when possible. Stale sessions expire after twenty seconds, and disconnected counters stop extrapolating. A fifteen-second snapshot poll provides recovery if the live connection drops. A Live label indicates an active Realtime subscription; Updating indicates snapshot fallback.
+
+The live counter combines confirmed practice records with only the unconfirmed part of each stable session event. Multiple devices add distinct events, and duplicate events are counted once. Live estimates settle to the recorded duration when final uploads arrive. Full journals and notes are never replicated to friends.
+
 Run `node build.cjs` after changing source modules or style.css. The generated bundle and hashed asset URLs are committed for static GitHub Pages hosting. Run `node serve.cjs` for local preview. Supabase configuration and setup are in `backend/SETUP.md`.
 
-Tests: `node --test journal.test.mjs social.test.mjs cloud-journal.test.mjs account-gate.test.cjs`. SQL authorization tests run inside rolled-back transactions; no test accounts remain and no emails are sent.
+Tests: `node --test journal.test.mjs social.test.mjs cloud-journal.test.mjs account-gate.test.cjs live-practice.test.mjs`. SQL authorization tests run inside rolled-back transactions; no test accounts remain and no emails are sent.
 
 Local development uses the configured real account backend. Do not use production accounts for destructive testing.
 

@@ -28,7 +28,7 @@ try{const stored=localStorage.getItem(KEY);state=stored?validateState(JSON.parse
 migrateDefaults(state);
 if(state.active&&(!state.songs.some(s=>s.id===state.active.songId)||!Number.isFinite(state.active.lastAt)||!Number.isFinite(state.active.elapsedMs)||!Number.isFinite(state.active.targetSeconds)||state.active.targetSeconds<=0))state.active=null;
 for(const song of state.songs)if(song.sample&&!song.lesson&&STARTER_LESSONS[song.title])song.lesson=STARTER_LESSONS[song.title];
-function save(){if(!cloud?.user)return;try{cloud.cache();storageFailed=false;}catch{if(!storageFailed)toast('Storage is full or unavailable. Export your journal to keep this session.');storageFailed=true;}cloud.changed();}
+function save(){if(!cloud?.user)return;try{cloud.cache();storageFailed=false;}catch{if(!storageFailed)toast('Storage is full or unavailable. Export your journal to keep this session.');storageFailed=true;}cloud.changed();social?.live?.changed();}
 function toast(text){clearTimeout(toastTimeout);$('toast').textContent=text;$('toast').classList.add('show');toastTimeout=setTimeout(()=>$('toast').classList.remove('show'),5500);}
 const songBy=id=>state.songs.find(s=>s.id===id),minutes=s=>Math.floor(s/60),time=s=>`${String(Math.floor(Math.max(0,s)/60)).padStart(2,'0')}:${String(Math.floor(Math.max(0,s)%60)).padStart(2,'0')}`,duration=s=>s<60?`${Math.floor(s)} sec`:`${Math.floor(s/60)} min${Math.floor(s%60)?' '+Math.floor(s%60)+' sec':''}`;
 function totalDay(key=dayKey()){return Object.values(state.logs[key]||{}).reduce((a,b)=>a+b,0);}
