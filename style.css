@@ -36,6 +36,46 @@
 .schedule-heading .switch-label{font-size:12px;gap:9px}
 .schedule-heading .switch-label input{width:20px;height:20px}
 .week-total strong{font-weight:400}
+.focus-count{font-size:12px;color:var(--muted)}
+.focus-tabs,.stage-switch{display:flex;gap:4px;padding:4px;background:var(--surface2);border:1px solid var(--line);border-radius:8px}
+.focus-tabs{margin-bottom:20px}
+.focus-tabs button,.stage-switch button{flex:1;background:none;color:var(--muted);border-radius:5px;padding:11px 14px;font-size:12px}
+.focus-tabs button[aria-pressed=true],.stage-switch button[aria-pressed=true]{background:var(--surface);color:var(--ink)}
+.focus-tabs small{font-size:10px;margin-left:8px;color:var(--muted)}
+.focus-song-list{display:grid;gap:12px}
+.focus-song-card{padding:17px 19px;border:1px solid var(--line);border-radius:9px;background:var(--surface)}
+.focus-song-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.focus-song-heading .icon-button{align-self:start;padding:0 3px;min-height:30px;min-width:30px;font-size:24px}
+.focus-song-heading .song-title{font-size:16px}
+.focus-due{font-size:11px;color:var(--muted);white-space:nowrap}
+.confidence-control{display:flex;align-items:center;gap:10px;margin:13px 0 9px;flex-wrap:wrap}
+.star-buttons{display:flex;gap:1px}
+.star-buttons button{display:grid;place-items:center;width:32px;height:36px;padding:0;background:none;color:var(--muted);font-size:27px;line-height:1}
+.star-buttons button.filled{color:var(--green)}
+.confidence-label,.clear-rating{font-size:11px;color:var(--muted)}
+.clear-rating{margin-left:auto;min-height:34px}
+.focus-duration{display:flex;align-items:center;justify-content:space-between;gap:15px;font-size:11px;color:var(--muted);padding-top:11px;border-top:1px solid var(--line)}
+.focus-duration>span{display:flex;align-items:center;gap:8px}
+.focus-duration input{width:63px;min-width:0;padding:8px;text-align:center;font-variant-numeric:tabular-nums}
+.focus-add{display:flex;gap:9px;margin-top:18px}
+.focus-add select{min-width:0}
+.focus-add button{flex-shrink:0;min-height:44px}
+.focus-empty{padding:30px 15px;border:1px dashed var(--line);border-radius:8px;text-align:center;font-size:13px;color:var(--muted)}
+.song-progress-controls{margin-top:22px;padding-block:18px;border-block:1px solid var(--line)}
+.song-progress-controls .stage-switch{max-width:340px}
+.song-focus-state{font-size:12px;color:var(--muted);margin-top:10px}
+.song-focus-state button{padding:9px 12px;font-size:11px}
+.song-learning-summary{display:block;margin-top:5px;font-size:10px;color:var(--green);line-height:1.5}
+.feedback-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:24px}
+.feedback-options button{padding:14px 8px;font-size:12px}
+.feedback-skip{display:block;min-height:44px;margin:14px auto 0}
+@media(max-width:600px){
+ .focus-song-card{padding:15px}.focus-song-heading .song-title{font-size:15px}
+ .focus-due{font-size:10px}.confidence-control{gap:8px}.star-buttons button{width:31px;height:40px}
+ .focus-add select{padding:11px}.focus-add button{padding:11px 14px}
+ #feedbackDialog{width:calc(100vw - 24px);padding:25px 20px}
+ .song-progress-controls .stage-switch{max-width:none}
+}
 .jam-friend-name{flex:1;min-width:0;display:block}
 .jam-friend-name>strong{display:block}
 .jam-live-status{display:block!important;font-size:10px!important;font-weight:400;color:var(--muted);line-height:1.5;margin-top:4px;overflow-wrap:anywhere}
