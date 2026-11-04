@@ -1,7 +1,7 @@
 import {validateState,freshState} from './journal.mjs';
 const copy=value=>JSON.parse(JSON.stringify(value));
 const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
-export function journalDocument(state){return copy({version:1,defaultsRevision:state.defaultsRevision||2,focusRevision:state.focusRevision||0,songs:state.songs,schedule:state.schedule,scheduleEnabled:!!state.scheduleEnabled,logs:state.logs});}
+export function journalDocument(state){return copy({version:1,defaultsRevision:state.defaultsRevision||2,focusRevision:state.focusRevision||0,songs:state.songs,schedule:state.schedule,scheduleEnabled:!!state.scheduleEnabled,logs:state.logs,...(state.practiceBudget?{practiceBudget:state.practiceBudget}:{})});}
 export function importLegacyJournal(remote,legacy){
  const out=copy(remote),map=new Map(),key=s=>(s.title+'|'+s.artist).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9|]/g,'');
  for(const song of legacy.songs){let target=out.songs.find(s=>s.id===song.id||key(s)===key(song));if(!target){target=copy(song);out.songs.push(target);}else{for(const field of ['notes','lesson'])if(!target[field]&&song[field])target[field]=song[field];}map.set(song.id,target.id);}
@@ -17,6 +17,8 @@ export function mergeJournal(base,local,remote){
  out.schedule=remote.schedule.map((day,i)=>copy(same(local.schedule[i],base.schedule[i])?day:local.schedule[i]));
  const ids=new Set(out.songs.map(s=>s.id));out.schedule=out.schedule.map(day=>day.filter(p=>ids.has(p.songId)));
  out.scheduleEnabled=same(local.scheduleEnabled,base.scheduleEnabled)?remote.scheduleEnabled:local.scheduleEnabled;
+ const budget=same(local.practiceBudget,base.practiceBudget)?remote.practiceBudget:local.practiceBudget;
+ if(budget)out.practiceBudget=copy(budget);else delete out.practiceBudget;
  out.logs=copy(remote.logs);
  for(const day of new Set([...Object.keys(base.logs),...Object.keys(local.logs)]))for(const id of new Set([...Object.keys(base.logs[day]||{}),...Object.keys(local.logs[day]||{})])){const delta=(local.logs[day]?.[id]||0)-(base.logs[day]?.[id]||0);if(delta){out.logs[day]??={};out.logs[day][id]=Math.max(0,Math.min(86400,(out.logs[day][id]||0)+delta));}}
  out.focusRevision=Math.max(local.focusRevision||0,remote.focusRevision||0);out.defaultsRevision=Math.max(local.defaultsRevision||2,remote.defaultsRevision||2);return validateState(out);
