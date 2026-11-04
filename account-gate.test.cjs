@@ -13,7 +13,9 @@ test('a new browser gets signup and cannot navigate to the journal before authen
  await new Promise(resolve=>setImmediate(resolve));
  assert.equal(clientOptions.auth.persistSession,true);
  assert.equal(clientOptions.auth.autoRefreshToken,true);
- assert.equal(clientOptions.auth.storage,context.localStorage);
+ assert.equal(typeof clientOptions.auth.storage.getItem,'function');
+ assert.equal(typeof clientOptions.auth.storage.setItem,'function');
+ assert.equal(clientOptions.auth.storageKey,'sb-example-auth-token');
  assert.ok(classes.has('auth-required'));
  assert.match(element('main').innerHTML,/<h2>Create account<\/h2>/);
  assert.match(element('main').innerHTML,/autocomplete="new-password"/);

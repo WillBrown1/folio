@@ -20,6 +20,8 @@ Finishing a session offers optional Struggled / Okay / Comfortable feedback. Mai
 
 An email/password account is required. Songs, plans, lesson links, notes, BPM, metronome settings and practice history sync privately through Supabase. Each browser keeps an account-specific cache for connection interruptions. Sync runs after edits, every ten seconds, and when returning to the page. Check “Synced to your account” before switching devices. Timers belong to the device that started them; their recorded time syncs, while active timers do not start on other devices.
 
+Sign-in uses Supabase's existing project storage key with local storage and an IndexedDB backup in the same browser. Refreshed sessions update both copies; explicit sign-out removes both. Returning to the page rechecks the saved session, and auth events are processed in order rather than dropped during journal loading. Sign out uses local scope so other devices retain their sessions. Private browsing, clearing all site data, and switching browser/app containers do not share this browser session.
+
 Existing browser data imports once into the first account used on that browser; the original journal is retained locally. Songs are matched by ID or title/artist, schedules are combined, and overlapping historical totals use the larger value to avoid counting the same old session twice. Existing cloud notes take precedence when both copies contain notes. Export/import remains available for manual backups. The supplied 23 songs are the default for new accounts, with unset BPM and lessons and a ten-minute target.
 
 Journal writes use revision checks and durable mutation IDs. Independent song-field and weekday edits merge, practice-time deltas add across devices, and retries are idempotent. For simultaneous edits to the same field or weekday, the device currently saving takes precedence. Full journals are private even when practice sharing is enabled; only the separately opted-in practice events are visible to friends and set members.
@@ -34,7 +36,7 @@ The live counter combines confirmed practice records with only the unconfirmed p
 
 Run `node build.cjs` after changing source modules or style.css. The generated bundle and hashed asset URLs are committed for static GitHub Pages hosting. Run `node serve.cjs` for local preview. Supabase configuration and setup are in `backend/SETUP.md`.
 
-Tests: `node --test journal.test.mjs social.test.mjs cloud-journal.test.mjs account-gate.test.cjs live-practice.test.mjs focus.test.mjs`. SQL authorization tests run inside rolled-back transactions; no test accounts remain and no emails are sent.
+Tests: `node --test journal.test.mjs social.test.mjs cloud-journal.test.mjs account-gate.test.cjs live-practice.test.mjs focus.test.mjs auth-session.test.mjs`. SQL authorization tests run inside rolled-back transactions; no test accounts remain and no emails are sent.
 
 Local development uses the configured real account backend. Do not use production accounts for destructive testing.
 
